@@ -1,4 +1,4 @@
-name: CI/CD
+name: PHP prod image builder
 
 on:
   push:
@@ -25,12 +25,3 @@ jobs:
           push: true
           tags: |
             roneikunkel/php82-fpm-alpine:latest
-
-      - name: Build and push testing docker image
-        uses: docker/build-push-action@v5.1.0
-        with:
-          context: ./
-          file: ./php82-fpm-alpine.testing.Dockerfile
-          push: true
-          tags: |
-            roneikunkel/php82-fpm-alpine-testing:latest
