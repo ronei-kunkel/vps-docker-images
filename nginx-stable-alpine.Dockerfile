@@ -2,12 +2,10 @@ FROM nginx:stable-alpine
 
 RUN apk add certbot-nginx
 
-COPY ./.docker/nginx/crontab.sh /crontab.sh
-
-RUN chmod +x /crontab.sh
-
-RUN /crontab.sh
+RUN if ! crontab -l | grep -q "0 0 1 */1 * certbot renew -q"; then \
+    (crontab -l ; echo "0 0 1 */1 * certbot renew -q") | crontab - ; \
+fi
 
 EXPOSE 443
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD sh -c "nginx -g daemonoff;"
