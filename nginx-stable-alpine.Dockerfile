@@ -8,4 +8,4 @@ fi
 
 EXPOSE 443
 
-CMD sh -c "nginx -g daemonoff;"
+CMD ["nginx", "-g", "daemonoff;"]
