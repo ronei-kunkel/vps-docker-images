@@ -8,4 +8,4 @@ fi
 
 EXPOSE 443
 
-CMD ["nginx", "-g", "daemonoff;"]
+CMD ["nginx", "-g", "daemon off;"]
