@@ -1,8 +1,8 @@
 FROM nginx:stable
 
 RUN apt update -y \
-    && apt install snapd \
-    && snap install --classic certbot -y \
+    && apt install snapd -y \
+    && snap install --classic certbot \
     && ln -s /snap/bin/certbot /usr/bin/certbot
 
 RUN if ! crontab -l | grep -q "0 0 1 */1 * certbot renew -q"; then \
