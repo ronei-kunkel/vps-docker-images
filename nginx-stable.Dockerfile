@@ -2,6 +2,7 @@ FROM nginx:stable
 
 RUN apt-get update \
     && apt-get install -y software-properties-common gnupg \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 75BCA694B2E086EAD9A731B6B3769E4549460F68 \
     && echo "deb http://ppa.launchpad.net/certbot/certbot/ubuntu bionic main" > /etc/apt/sources.list.d/certbot.list \
     && add-apt-repository ppa:certbot/certbot \
     && apt-get update
