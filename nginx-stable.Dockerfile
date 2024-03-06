@@ -1,7 +1,7 @@
 FROM nginx:stable
 
 RUN apt update -y \
-    && apt install snapd -y \
+    && apt install snapd \
     && snap install --classic certbot -y \
     && ln -s /snap/bin/certbot /usr/bin/certbot
 
