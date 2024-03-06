@@ -1,7 +1,10 @@
 FROM nginx:stable
 
-RUN add-apt-repository ppa:certbot/certbot \
-    && apt update
+RUN apt-get update \
+    && apt-get install -y software-properties-common gnupg \
+    && echo "deb http://ppa.launchpad.net/certbot/certbot/ubuntu bionic main" > /etc/apt/sources.list.d/certbot.list \
+    && add-apt-repository ppa:certbot/certbot \
+    && apt-get update
 
 RUN apt install certbot-nginx
 
