@@ -5,9 +5,6 @@ USER root
 WORKDIR /
 
 RUN apk --no-cache add \
-  gcc \
-  g++ \
-  make \
   build-base \
   openssl \
   freetype-dev \
@@ -15,7 +12,6 @@ RUN apk --no-cache add \
   libpng-dev \
   libwebp-dev \
   libzip-dev \
-  libc-dev \
   libwebp-dev \
   zlib-dev \
   nano \
@@ -35,7 +31,6 @@ RUN apk --no-cache add \
   tzdata \
   linux-headers \
   autoconf \
-  && pecl install ds \
   && echo 'America/Sao_Paulo' > /etc/timezone \
   && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
   && rm -rf /var/cache/apk/* \
@@ -46,8 +41,6 @@ RUN docker-php-ext-configure gd \
   --with-freetype=/usr/include/ \
   --with-jpeg=/usr/include/ \
   --with-webp=/usr/include/
-
-RUN docker-php-ext-enable ds
 
 RUN docker-php-ext-install gd gmp pdo_mysql mbstring pdo exif sockets sodium bcmath zip intl pcntl bz2
 
