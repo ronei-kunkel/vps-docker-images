@@ -45,7 +45,7 @@ RUN docker-php-ext-install gd gmp pdo_mysql mbstring pdo exif sockets sodium bcm
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-pecl install ds
+RUN pecl install ds
 
 EXPOSE 9000
 
