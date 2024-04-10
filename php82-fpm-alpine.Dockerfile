@@ -5,14 +5,19 @@ USER root
 WORKDIR /
 
 RUN apk --no-cache add \
+  gcc \
+  g++ \
+  make \
   build-base \
   openssl \
   freetype-dev \
   libjpeg-turbo-dev \
   libpng-dev \
   libwebp-dev \
-  zlib-dev \
   libzip-dev \
+  libc-dev \
+  libwebp-dev \
+  zlib-dev \
   nano \
   unzip \
   curl \
@@ -29,23 +34,24 @@ RUN apk --no-cache add \
   icu-dev \
   tzdata \
   linux-headers \
-  libwebp-dev \
   autoconf \
+  && pecl install ds \
   && echo 'America/Sao_Paulo' > /etc/timezone \
   && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
   && rm -rf /var/cache/apk/* \
-  && apk del build-base
+  && apk del build-base 
+
 
 RUN docker-php-ext-configure gd \
   --with-freetype=/usr/include/ \
   --with-jpeg=/usr/include/ \
   --with-webp=/usr/include/
 
+RUN docker-php-ext-enable ds
+
 RUN docker-php-ext-install gd gmp pdo_mysql mbstring pdo exif sockets sodium bcmath zip intl pcntl bz2
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN pecl install ds
 
 EXPOSE 9000
 
