@@ -10,8 +10,7 @@ RUN apt-get update \
 RUN python3 -m venv /opt/venv \
     && /opt/venv/bin/pip install yt-dlp
 
-RUN npm cache clean --force \
-    && npm install npx \
+RUN npm install -g npx \
     && npx playwright install \
     && npx playwright install-deps
 
