@@ -14,6 +14,7 @@ RUN apk --no-cache add \
   oniguruma-dev \
   gmp-dev \
   libsodium-dev \
+  postgresql-dev \
   pcre-dev \
   # bzip2-dev \
   icu-dev \
