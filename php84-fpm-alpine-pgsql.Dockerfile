@@ -27,7 +27,7 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-ext-install -j$(nproc) \
   gd \
   gmp \
-  php_pgsql \
+  pdo_pgsql \
   mbstring \
   pdo \
   # exif \
