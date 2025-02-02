@@ -1,0 +1,29 @@
+name: NGINX Alpine Image Builder
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'nginx-stable-alpine.Dockerfile'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Authenticate on Docker Hub
+        uses: docker/login-action@v3.0.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push NGINX Alpine image
+        uses: docker/build-push-action@v5.1.0
+        with:
+          context: ./
+          file: ./nginx-stable-alpine.Dockerfile
+          push: true
+          tags: |
+            roneikunkel/nginx-stable-alpine:latest

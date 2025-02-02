@@ -1,23 +1,25 @@
-name: Node image builder
+name: Node 20 with yt dlp image builder
 
 on:
   push:
     branches:
-    - main
+      - main
+    paths:
+      - 'node20-with-yt-dlp.Dockerfile'
 
 jobs:
-  CI:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
 
-      - name: Auth on docker hub
+      - name: Authenticate on Docker Hub
         uses: docker/login-action@v3.0.0
         with:
-          username: ${{secrets.DOCKERHUB_USERNAME}}
-          password: ${{secrets.DOCKERHUB_PASSWORD}}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Build and push node image
+      - name: Build and push Node 20 with yt dlp image
         uses: docker/build-push-action@v5.1.0
         with:
           context: ./

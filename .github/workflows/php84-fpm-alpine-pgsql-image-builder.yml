@@ -1,0 +1,29 @@
+name: PHP 8.4 FPM Alpine with PGSQL Image Builder
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'php84-fpm-alpine-pgsql.Dockerfile'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Authenticate on Docker Hub
+        uses: docker/login-action@v3.0.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push PHP 8.4 FPM Alpine with PGSQL image
+        uses: docker/build-push-action@v5.1.0
+        with:
+          context: ./
+          file: ./php84-fpm-alpine-pgsql.Dockerfile
+          push: true
+          tags: |
+            roneikunkel/php84-fpm-alpine-pgsql:latest
