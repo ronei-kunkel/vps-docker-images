@@ -15,7 +15,6 @@ RUN apk --no-cache add \
   gmp-dev \
   libsodium-dev \
   postgresql-dev \
-  postgresql-libs \
   pcre-dev \
   # bzip2-dev \
   icu-dev \
@@ -63,7 +62,8 @@ RUN apk --no-cache add \
   gmp \
   libsodium \
   pcre \
-  bzip2 \
+  postgresql-libs \
+  # bzip2 \
   icu \
   tzdata \
   && echo 'America/Sao_Paulo' > /etc/timezone \
