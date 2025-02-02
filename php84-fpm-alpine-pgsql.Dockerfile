@@ -15,6 +15,7 @@ RUN apk --no-cache add \
   gmp-dev \
   libsodium-dev \
   postgresql-dev \
+  postgresql-libs \
   pcre-dev \
   # bzip2-dev \
   icu-dev \
