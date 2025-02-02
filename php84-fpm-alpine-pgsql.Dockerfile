@@ -18,6 +18,7 @@ RUN apk --no-cache add \
   pcre-dev \
   # bzip2-dev \
   icu-dev \
+  linux-headers \
   autoconf
 
 RUN docker-php-ext-configure gd \
