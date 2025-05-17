@@ -63,6 +63,7 @@ RUN apk --no-cache add \
   libsodium \
   pcre \
   postgresql-libs \
+  postgresql-client \
   # bzip2 \
   icu \
   tzdata \
