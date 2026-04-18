@@ -2,9 +2,8 @@ FROM php:8.4-fpm-alpine AS builder
 
 WORKDIR /app
 
-RUN apk --no-cache add \
-  build-base \
-  openssl \
+RUN apk add --no-cache \
+  $PHPIZE_DEPS \
   freetype-dev \
   libjpeg-turbo-dev \
   libpng-dev \
@@ -16,15 +15,14 @@ RUN apk --no-cache add \
   libsodium-dev \
   postgresql-dev \
   pcre-dev \
-  # bzip2-dev \
   icu-dev \
   linux-headers \
   autoconf
 
 RUN docker-php-ext-configure gd \
-  --with-freetype=/usr/include/ \
-  --with-jpeg=/usr/include/ \
-  --with-webp=/usr/include/
+  --with-freetype \
+  --with-jpeg \
+  --with-webp
 
 RUN docker-php-ext-install -j$(nproc) \
   gd \
@@ -32,17 +30,20 @@ RUN docker-php-ext-install -j$(nproc) \
   pdo_pgsql \
   mbstring \
   pdo \
-  # exif \
   sockets \
   sodium \
   bcmath \
   zip \
   intl \
-  # bz2 \
   pcntl
 
-RUN pecl install xdebug \
-  && docker-php-ext-enable xdebug
+RUN pecl install \
+  xdebug \
+  ds
+
+RUN docker-php-ext-enable \
+  xdebug \
+  ds
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -54,7 +55,7 @@ COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
 COPY --from=builder /usr/local/bin/composer /usr/local/bin/composer
 
-RUN apk --no-cache add \
+RUN apk add --no-cache \
   freetype \
   libjpeg-turbo \
   libpng \
@@ -67,7 +68,6 @@ RUN apk --no-cache add \
   pcre \
   postgresql-libs \
   postgresql-client \
-  # bzip2 \
   icu \
   tzdata \
   && echo 'America/Sao_Paulo' > /etc/timezone \
