@@ -35,13 +35,15 @@ RUN docker-php-ext-configure gd \
   zip \
   intl \
   pcntl \
-  exif
+  exif \
+  ffi
 
 RUN pecl install ds
 
 RUN docker-php-ext-enable \
   opcache \
-  ds
+  ds \
+  ffi
 
 RUN rm -rf /tmp/pear
 

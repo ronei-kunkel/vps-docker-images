@@ -38,7 +38,8 @@ RUN docker-php-ext-install -j$(nproc) \
   zip \
   intl \
   pcntl \
-  exif
+  exif \
+  ffi
 
 RUN pecl install \
   xdebug \
@@ -47,7 +48,8 @@ RUN pecl install \
 RUN docker-php-ext-enable \
   xdebug \
   opcache \
-  ds
+  ds \
+  ffi
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
