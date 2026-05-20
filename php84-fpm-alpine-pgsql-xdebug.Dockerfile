@@ -16,6 +16,8 @@ RUN apk add --no-cache \
   postgresql-dev \
   pcre-dev \
   icu-dev \
+  libvips \
+  libvips-dev \
   linux-headers \
   autoconf
 
@@ -35,7 +37,8 @@ RUN docker-php-ext-install -j$(nproc) \
   bcmath \
   zip \
   intl \
-  pcntl
+  pcntl \
+  exif
 
 RUN pecl install \
   xdebug \
@@ -71,6 +74,8 @@ RUN apk add --no-cache \
   postgresql-client \
   icu \
   tzdata \
+  libvips \
+  libvips-dev \
   && echo 'America/Sao_Paulo' > /etc/timezone \
   && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
   && rm -rf /var/cache/apk/*

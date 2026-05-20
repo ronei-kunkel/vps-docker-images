@@ -15,6 +15,8 @@ RUN apk add --no-cache \
   libsodium-dev \
   postgresql-dev \
   icu-dev \
+  libvips \
+  libvips-dev \
   linux-headers
 
 RUN docker-php-ext-configure gd \
@@ -32,7 +34,8 @@ RUN docker-php-ext-configure gd \
   bcmath \
   zip \
   intl \
-  pcntl
+  pcntl \
+  exif
 
 RUN pecl install ds
 
@@ -65,7 +68,9 @@ RUN apk add --no-cache \
   postgresql-libs \
   postgresql-client \
   icu \
-  tzdata
+  tzdata \
+  libvips \
+  libvips-dev
 
 RUN echo "America/Sao_Paulo" > /etc/timezone \
   && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
