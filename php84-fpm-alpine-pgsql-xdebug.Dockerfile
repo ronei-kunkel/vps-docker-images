@@ -16,8 +16,8 @@ RUN apk add --no-cache \
   postgresql-dev \
   pcre-dev \
   icu-dev \
-  libvips \
-  libvips-dev \
+  vips \
+  vips-dev \
   linux-headers \
   autoconf
 
@@ -74,8 +74,8 @@ RUN apk add --no-cache \
   postgresql-client \
   icu \
   tzdata \
-  libvips \
-  libvips-dev \
+  vips \
+  vips-dev \
   && echo 'America/Sao_Paulo' > /etc/timezone \
   && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
   && rm -rf /var/cache/apk/*
