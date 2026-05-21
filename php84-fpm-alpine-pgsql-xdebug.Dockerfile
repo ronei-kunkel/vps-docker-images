@@ -51,7 +51,12 @@ RUN docker-php-ext-enable \
   ds \
   ffi
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN printf "ffi.enable=true\nzend.max_allowed_stack_size=-1\n" \
+  > /usr/local/etc/php/conf.d/ffi.ini
+
+RUN curl -sS https://getcomposer.org/installer | php -- \
+  --install-dir=/usr/local/bin \
+  --filename=composer
 
 FROM php:8.4-fpm-alpine
 
@@ -81,6 +86,8 @@ RUN apk add --no-cache \
   && echo 'America/Sao_Paulo' > /etc/timezone \
   && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
   && rm -rf /var/cache/apk/*
+
+ENV LD_LIBRARY_PATH=/usr/lib:/lib
 
 EXPOSE 9000
 

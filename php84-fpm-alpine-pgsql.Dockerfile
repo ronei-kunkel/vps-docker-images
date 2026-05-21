@@ -24,7 +24,7 @@ RUN docker-php-ext-configure gd \
   --with-jpeg \
   --with-webp
 
-  RUN docker-php-ext-install -j$(nproc) \
+RUN docker-php-ext-install -j$(nproc) \
   gd \
   gmp \
   pdo_pgsql \
@@ -44,6 +44,9 @@ RUN docker-php-ext-enable \
   opcache \
   ds \
   ffi
+
+RUN printf "ffi.enable=true\nzend.max_allowed_stack_size=-1\n" \
+  > /usr/local/etc/php/conf.d/ffi.ini
 
 RUN rm -rf /tmp/pear
 
@@ -76,6 +79,8 @@ RUN apk add --no-cache \
 
 RUN echo "America/Sao_Paulo" > /etc/timezone \
   && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+
+ENV LD_LIBRARY_PATH=/usr/lib:/lib
 
 EXPOSE 9000
 
